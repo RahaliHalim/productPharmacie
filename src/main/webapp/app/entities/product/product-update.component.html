@@ -1,0 +1,91 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-product-heading">Create or edit a Product</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                           formControlName="name"/>
+                    <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('name')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_code">Code</label>
+                    <input type="number" class="form-control" name="code" id="field_code"
+                    (keyup)="uniquecode($event)"
+                    formControlName="code"/>
+                    <div *ngIf="editForm.get('code')!.invalid && (editForm.get('code')!.dirty || editForm.get('code')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('code')?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('code')?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                    <small class="form-text text-danger"
+                    [hidden]="uniquecodetest == 0">
+                    This field should be unique.
+                </small> 
+
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_validationDate">Validation Date</label>
+                    <div class="input-group">
+                        <input id="field_validationDate" type="text" class="form-control" name="validationDate"  ngbDatepicker [minDate]="datemin" #validationDateDp="ngbDatepicker"   formControlName="validationDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="validationDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('validationDate')!.invalid && (editForm.get('validationDate')!.dirty || editForm.get('validationDate')!.touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('validationDate')?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sellingPrice">Selling Price</label>
+                    <input type="number" class="form-control" name="sellingPrice" id="field_sellingPrice"
+                           formControlName="sellingPrice"/>
+                           <div *ngIf="editForm.get('sellingPrice')!.invalid && (editForm.get('sellingPrice')!.dirty || editForm.get('sellingPrice')!.touched)">
+                            <small class="form-text text-danger"
+                                   *ngIf="editForm.get('sellingPrice')?.errors?.required">
+                            This field is required.
+                            </small>
+                        </div>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

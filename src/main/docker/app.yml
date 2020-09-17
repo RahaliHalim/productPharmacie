@@ -1,0 +1,16 @@
+version: '2'
+services:
+  prodpharmacie-app:
+    image: prodpharmacie
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - SPRING_PROFILES_ACTIVE=prod,swagger
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://prodpharmacie-postgresql:5432/prodPharmacie
+      - JHIPSTER_SLEEP=30 # gives time for other services to boot before the application
+    ports:
+      - 8080:8080
+  prodpharmacie-postgresql:
+    extends:
+      file: postgresql.yml
+      service: prodpharmacie-postgresql
