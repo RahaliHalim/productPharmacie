@@ -29,7 +29,8 @@ export class ProductUpdateComponent implements OnInit {
     name: [null, [Validators.required]],
     code: [null, [Validators.required]],
     validationDate: [null, [Validators.required]],
-    sellingPrice: [null, [Validators.required]]
+    sellingPrice: [null, [Validators.required]],
+    selling: [null, [Validators.required]],
   });
 
   constructor(protected productService: ProductService, protected parseLinks: JhiParseLinks, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {
@@ -67,7 +68,8 @@ export class ProductUpdateComponent implements OnInit {
       name: product.name,
       code: product.code,
       validationDate: product.validationDate,
-      sellingPrice: product.sellingPrice
+      sellingPrice: product.sellingPrice,
+      selling: product.sellingPrice,
     });
   }
 
